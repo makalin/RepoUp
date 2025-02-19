@@ -17,7 +17,7 @@ A modern, feature-rich GitHub repository dashboard that automatically updates da
 
 ## 🚀 Live Demo
 
-Visit the live demo: [https://makalin.github.io/repoup](https://makalin.github.io/repoup)
+Visit the live demo: [https://makalin.github.io/RepoUp](https://makalin.github.io/repoup)
 
 ## 🛠️ Installation
 
