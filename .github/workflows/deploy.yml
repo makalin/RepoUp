@@ -6,7 +6,6 @@ on:
   schedule:
     - cron: '0 0 * * *'
 
-# Add permissions for GitHub Pages deployment
 permissions:
   contents: write
   pages: write
