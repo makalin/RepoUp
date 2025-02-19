@@ -2,7 +2,7 @@
 
 A modern, feature-rich GitHub repository dashboard that automatically updates daily. Built with React and Tailwind CSS, this project provides an elegant way to showcase your GitHub repositories with advanced filtering, searching, and viewing capabilities.
 
-![RepoUp](https://raw.githubusercontent.com/makalin/repoup/preview.png)
+![RepoUp](https://raw.githubusercontent.com/makalin/repoup/main/preview.png)
 
 ## ✨ Features
 
