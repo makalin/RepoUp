@@ -115,9 +115,14 @@ schedule:
 
 ### GitHub Pages deployment
 
-1. In the repo settings, enable **GitHub Pages**.
-2. Set source to **GitHub Actions** (or build `dist/` and deploy it).
-3. Site will be at `https://[username].github.io/RepoUp` (or your repo name).
+The workflow builds the app and deploys the **built** files (from `dist/`) via GitHub Actions. For the site to work:
+
+1. In the repo: **Settings → Pages**.
+2. Under **Build and deployment**, set **Source** to **GitHub Actions** (not “Deploy from a branch”).
+3. Push to `main` (or run the workflow manually). The “Deploy to GitHub Pages” workflow will build and publish.
+4. The site will be at `https://[username].github.io/RepoUp/` (project site) or the URL shown in the **Pages** settings.
+
+**Important:** If the source is set to “Deploy from a branch” (e.g. `main`), the server will serve the raw source. The browser will then request `/src/main.jsx`, get a 404 HTML page, and show errors like *“Loading module was blocked because of a disallowed MIME type (text/html)”* and the app will not run. Always use **Source: GitHub Actions** so the deployed content is the built app from the workflow.
 
 ## 📱 Responsiveness
 
