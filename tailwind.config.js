@@ -8,10 +8,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: 'hsl(var(--background))',
-        foreground: 'hsl(var(--foreground))',
-        primary: 'hsl(var(--primary))',
-        'primary-foreground': 'hsl(var(--primary-foreground))',
+        background: 'rgb(var(--background))',
+        foreground: 'rgb(var(--foreground))',
+        primary: 'rgb(var(--primary))',
+        'primary-foreground': 'rgb(var(--primary-foreground))',
       },
     },
   },

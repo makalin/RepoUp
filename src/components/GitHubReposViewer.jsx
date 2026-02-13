@@ -191,145 +191,147 @@ function GitHubReposViewer() {
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground transition-colors duration-200">
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex flex-wrap justify-between items-center gap-4 mb-6">
-          <h1 className="text-3xl font-bold text-foreground">My Repositories</h1>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={toggleTheme}
-              className={`p-2 rounded-lg ${buttonBase}`}
-              title="Toggle theme"
-            >
-              {theme === 'light' ? <Moon size={24} /> : <Sun size={24} />}
-            </button>
-            <button
-              onClick={() => fetchRepos(false)}
-              disabled={loading}
-              className={`p-2 rounded-lg ${buttonBase} disabled:opacity-50`}
-              title="Refresh"
-            >
-              <RefreshCw size={24} className={loading ? 'animate-spin' : ''} />
-            </button>
-          </div>
+    <div className="min-h-screen bg-background text-foreground transition-colors duration-200" data-repoup-version="2">
+      <div className="space-y-6">
+        {/* Top bar: theme + refresh */}
+        <div className="flex justify-end gap-2">
+          <button
+            onClick={toggleTheme}
+            className={`p-2.5 rounded-xl ${buttonBase} transition shadow-sm`}
+            title="Toggle theme"
+          >
+            {theme === 'light' ? <Moon size={22} /> : <Sun size={22} />}
+          </button>
+          <button
+            onClick={() => fetchRepos(false)}
+            disabled={loading}
+            className={`p-2.5 rounded-xl ${buttonBase} disabled:opacity-50 transition shadow-sm`}
+            title="Refresh"
+          >
+            <RefreshCw size={22} className={loading ? 'animate-spin' : ''} />
+          </button>
         </div>
 
-        {/* Stats bar */}
-        <div className="flex flex-wrap gap-4 mb-6 p-4 rounded-lg bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-foreground">
+        {/* Stats strip */}
+        <div className="flex flex-wrap items-center gap-4 p-4 rounded-xl bg-primary/5 dark:bg-primary/10 border border-primary/20 text-foreground">
           <span className="text-sm font-medium">
-            Total: <strong>{repos.length}</strong> repos
+            Total <strong className="text-primary">{repos.length}</strong> repos
           </span>
           <span className="text-sm text-gray-600 dark:text-gray-400">
-            Showing: <strong>{filteredRepos.length}</strong> (filtered)
+            Showing <strong>{filteredRepos.length}</strong> after filters
           </span>
           {repos.length >= GITHUB_PER_PAGE && (
             <button
               onClick={() => fetchRepos(true)}
               disabled={loadingAll}
-              className={`text-sm px-3 py-1 rounded ${buttonBase} disabled:opacity-50`}
+              className={`text-sm px-4 py-2 rounded-lg font-medium ${buttonPrimary} disabled:opacity-50`}
             >
-              {loadingAll ? 'Loading all...' : 'Load all repos'}
+              {loadingAll ? 'Loading all…' : 'Load all repos'}
             </button>
           )}
         </div>
 
-        {/* Search, filters, sort, view */}
-        <div className="flex flex-col gap-4 mb-8">
-          <div className="flex flex-col sm:flex-row gap-4">
-            <div className="relative flex-1">
-              <Search
-                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400"
-                size={20}
-              />
-              <input
-                type="text"
-                placeholder="Search repositories..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className={`w-full pl-10 pr-4 py-2 rounded-lg ${inputBase}`}
-              />
-            </div>
-            <select
-              value={selectedLanguage}
-              onChange={(e) => setSelectedLanguage(e.target.value)}
-              className={`p-2 rounded-lg min-w-[140px] ${inputBase}`}
-            >
-              {languages.map((lang) => (
-                <option key={lang} value={lang}>
-                  {lang || 'None'}
-                </option>
-              ))}
-            </select>
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              className={`p-2 rounded-lg min-w-[160px] ${inputBase}`}
-            >
-              {SORT_OPTIONS.map((opt) => (
-                <option key={opt.value} value={opt.value}>
-                  {opt.label}
-                </option>
-              ))}
-            </select>
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => setViewMode('grid')}
-                className={`p-2 rounded-lg ${viewMode === 'grid' ? buttonPrimary : buttonBase}`}
-                title="Grid view"
+        {/* Toolbar: search, filters, view */}
+        <section className="p-5 rounded-2xl bg-white dark:bg-gray-800/80 border border-gray-200 dark:border-gray-700 shadow-sm">
+          <h2 className="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-4">
+            Search & filters
+          </h2>
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
+              <div className="relative flex-1">
+                <Search
+                  className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400"
+                  size={20}
+                />
+                <input
+                  type="text"
+                  placeholder="Search by name or description..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className={`w-full pl-10 pr-4 py-2.5 rounded-xl ${inputBase}`}
+                />
+              </div>
+              <select
+                value={selectedLanguage}
+                onChange={(e) => setSelectedLanguage(e.target.value)}
+                className={`p-2.5 rounded-xl min-w-[140px] ${inputBase}`}
               >
-                <LayoutGrid size={22} />
-              </button>
-              <button
-                onClick={() => setViewMode('list')}
-                className={`p-2 rounded-lg ${viewMode === 'list' ? buttonPrimary : buttonBase}`}
-                title="List view"
+                {languages.map((lang) => (
+                  <option key={lang} value={lang}>
+                    {lang || 'None'}
+                  </option>
+                ))}
+              </select>
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                className={`p-2.5 rounded-xl min-w-[180px] ${inputBase}`}
               >
-                <List size={22} />
-              </button>
+                {SORT_OPTIONS.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </option>
+                ))}
+              </select>
+              <div className="flex items-center gap-1 p-1 rounded-xl bg-gray-100 dark:bg-gray-700/50">
+                <button
+                  onClick={() => setViewMode('grid')}
+                  className={`p-2 rounded-lg ${viewMode === 'grid' ? buttonPrimary : buttonBase}`}
+                  title="Grid view"
+                >
+                  <LayoutGrid size={22} />
+                </button>
+                <button
+                  onClick={() => setViewMode('list')}
+                  className={`p-2 rounded-lg ${viewMode === 'list' ? buttonPrimary : buttonBase}`}
+                  title="List view"
+                >
+                  <List size={22} />
+                </button>
+              </div>
             </div>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-4">
-            <label className="flex items-center gap-2 cursor-pointer text-foreground">
-              <input
-                type="checkbox"
-                checked={showArchived}
-                onChange={(e) => setShowArchived(e.target.checked)}
-                className="rounded border-gray-300 dark:border-gray-600 text-primary bg-white dark:bg-gray-800"
-              />
-              <span className="text-sm">Show archived</span>
-            </label>
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-4 pt-2 border-t border-gray-200 dark:border-gray-600">
+              <label className="flex items-center gap-2 cursor-pointer text-foreground">
+                <input
+                  type="checkbox"
+                  checked={showArchived}
+                  onChange={(e) => setShowArchived(e.target.checked)}
+                  className="rounded border-gray-300 dark:border-gray-600 text-primary bg-white dark:bg-gray-800"
+                />
+                <span className="text-sm">Show archived</span>
+              </label>
+              <span className="text-gray-300 dark:text-gray-600">|</span>
+              <span className="text-xs font-medium text-gray-500 dark:text-gray-400">Export</span>
               <button
                 onClick={copyAllUrls}
-                className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm ${buttonBase}`}
+                className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium ${buttonBase}`}
               >
                 <Copy size={16} />
                 Copy URLs
               </button>
               <button
                 onClick={exportCSV}
-                className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm ${buttonBase}`}
+                className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium ${buttonBase}`}
               >
                 <Download size={16} />
-                Export CSV
+                CSV
               </button>
               <button
                 onClick={exportJSON}
-                className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm ${buttonBase}`}
+                className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium ${buttonBase}`}
               >
                 <Download size={16} />
-                Export JSON
+                JSON
               </button>
+              {(copySuccess || exportSuccess) && (
+                <span className="text-sm text-green-600 dark:text-green-400 flex items-center gap-1">
+                  <Check size={16} />
+                  {copySuccess || exportSuccess}
+                </span>
+              )}
             </div>
-            {(copySuccess || exportSuccess) && (
-              <span className="text-sm text-green-600 dark:text-green-400 flex items-center gap-1">
-                <Check size={16} />
-                {copySuccess || exportSuccess}
-              </span>
-            )}
           </div>
-        </div>
+        </section>
 
         {error ? (
           <div className="text-center text-red-600 dark:text-red-400 py-8">Error: {error}</div>
@@ -338,13 +340,13 @@ function GitHubReposViewer() {
             {viewMode === 'grid' ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {currentRepos.map((repo) => (
-                  <RepoCard key={repo.id} repo={repo} theme={theme} />
+                  <RepoCard key={repo.id} repo={repo} />
                 ))}
               </div>
             ) : (
-              <div className="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+              <div className="border border-gray-200 dark:border-gray-700 rounded-2xl overflow-hidden bg-white dark:bg-gray-800/60 shadow-sm">
                 <table className="w-full text-left text-foreground">
-                  <thead className="bg-gray-100 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+                  <thead className="bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
                     <tr>
                       <th className="px-4 py-3 font-semibold">Repository</th>
                       <th className="px-4 py-3 font-semibold hidden sm:table-cell">Language</th>
@@ -368,7 +370,7 @@ function GitHubReposViewer() {
                 <button
                   onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                   disabled={currentPage === 1}
-                  className={`px-3 py-2 rounded-lg text-sm ${buttonBase} disabled:opacity-50`}
+                  className={`px-4 py-2.5 rounded-xl text-sm font-medium ${buttonBase} disabled:opacity-50`}
                 >
                   Previous
                 </button>
@@ -376,7 +378,7 @@ function GitHubReposViewer() {
                   <button
                     key={i + 1}
                     onClick={() => setCurrentPage(i + 1)}
-                    className={`min-w-[2.5rem] px-3 py-2 rounded-lg text-sm ${
+                    className={`min-w-[2.75rem] px-3 py-2.5 rounded-xl text-sm font-medium ${
                       currentPage === i + 1 ? buttonPrimary : buttonBase
                     }`}
                   >
@@ -386,7 +388,7 @@ function GitHubReposViewer() {
                 <button
                   onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                   disabled={currentPage === totalPages}
-                  className={`px-3 py-2 rounded-lg text-sm ${buttonBase} disabled:opacity-50`}
+                  className={`px-4 py-2.5 rounded-xl text-sm font-medium ${buttonBase} disabled:opacity-50`}
                 >
                   Next
                 </button>
@@ -399,35 +401,35 @@ function GitHubReposViewer() {
   );
 }
 
-function RepoCard({ repo, theme }) {
+function RepoCard({ repo }) {
   return (
-    <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:shadow-lg transition-shadow bg-white dark:bg-gray-800/50 text-foreground">
+    <div className="group border border-gray-200 dark:border-gray-700 rounded-2xl p-6 hover:shadow-xl hover:border-primary/30 transition-all duration-200 bg-white dark:bg-gray-800/60 text-foreground">
       <h2 className="text-xl font-semibold mb-2">
         <a
           href={repo.html_url}
           target="_blank"
           rel="noopener noreferrer"
-          className="hover:text-primary text-foreground inline-flex items-center gap-1"
+          className="text-foreground hover:text-primary inline-flex items-center gap-1.5"
         >
           {repo.name}
-          <ExternalLink size={14} className="opacity-70" />
+          <ExternalLink size={14} className="opacity-60 group-hover:opacity-100" />
         </a>
       </h2>
       {repo.archived && (
-        <span className="text-xs px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-200 mb-2 inline-block">
+        <span className="text-xs px-2 py-0.5 rounded-lg bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-200 mb-2 inline-block">
           Archived
         </span>
       )}
-      <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">{repo.description}</p>
+      <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-2 text-sm">{repo.description}</p>
       <div className="flex items-center gap-4 text-sm text-foreground">
         {repo.language && (
-          <span className="text-foreground">{repo.language}</span>
+          <span className="px-2 py-0.5 rounded-md bg-primary/10 text-primary font-medium">{repo.language}</span>
         )}
-        <span className="flex items-center gap-1">
+        <span className="flex items-center gap-1 text-gray-600 dark:text-gray-400">
           <Star size={14} />
           {repo.stargazers_count}
         </span>
-        <span className="flex items-center gap-1">
+        <span className="flex items-center gap-1 text-gray-600 dark:text-gray-400">
           <GitFork size={14} />
           {repo.forks_count}
         </span>

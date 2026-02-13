@@ -3,39 +3,39 @@
 @tailwind utilities;
 
 :root {
-  --background: 0 0% 100%;
-  --foreground: 222.2 84% 4.9%;
+  --background: 248 250 252; /* slate-50 */
+  --foreground: 15 23 42;
+  --primary: 99 102 241; /* indigo-500 */
+  --primary-foreground: 255 255 255;
 }
 
 .dark {
-  --background: 222.2 84% 4.9%;
-  --foreground: 0 0% 100%;
+  --background: 15 23 42; /* slate-900 */
+  --foreground: 248 250 252;
+  --primary: 129 140 248; /* indigo-400 */
+  --primary-foreground: 15 23 42;
 }
 
 body {
-  background-color: hsl(var(--background));
-  color: hsl(var(--foreground));
+  background-color: rgb(var(--background));
+  color: rgb(var(--foreground));
 }
 
 @layer base {
   :root {
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --secondary: 241 245 249;
+    --secondary-foreground: 15 23 42;
+    --border: 226 232 240;
+    --input: 226 232 240;
+    --ring: 99 102 241;
     --radius: 0.5rem;
   }
 
   .dark {
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --secondary: 30 41 59;
+    --secondary-foreground: 248 250 252;
+    --border: 51 65 85;
+    --input: 51 65 85;
+    --ring: 129 140 248;
   }
 } 
